@@ -3,7 +3,8 @@ import { LogOut, MessageCircle, Trash2 } from "lucide-react";
 import { wedding } from "@/config/wedding";
 import { isAdmin, isAdminConfigured } from "@/lib/admin-auth";
 import { getEventId } from "@/lib/data";
-import { invitationUrl } from "@/lib/site";
+import { headers } from "next/headers";
+import { invitationUrl, siteUrlFromHeaders } from "@/lib/site";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase-server";
 import { buildInviteMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 import { formatRelativeId } from "@/lib/format";
@@ -75,6 +76,7 @@ export default async function AdminPage() {
     );
   }
 
+  const baseUrl = siteUrlFromHeaders(await headers());
   const db = getSupabase();
   const [{ data: guests }, { data: publicRsvps }, { data: wishes }] = await Promise.all([
     db
@@ -151,7 +153,7 @@ export default async function AdminPage() {
         <div className="mt-4 divide-y divide-espresso/10">
           {list.length === 0 && <p className="py-6 text-sm text-ink/50">Belum ada tamu.</p>}
           {list.map((g) => {
-            const url = invitationUrl(wedding.slug, g.token);
+            const url = invitationUrl(wedding.slug, g.token, baseUrl);
             const message = buildInviteMessage({
               guestName: g.guest_name,
               invitationUrl: url,
