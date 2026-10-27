@@ -17,27 +17,30 @@ export type InviteMessageInput = {
   invitationUrl: string;
   groomName: string;
   brideName: string;
-  dateLabel: string;
 };
 
-export function buildInviteMessage({ guestName, invitationUrl, groomName, brideName, dateLabel }: InviteMessageInput) {
+/** Teks undangan per tamu — dipakai tombol "Salin teks" dan tombol WhatsApp di admin. */
+export function buildInviteMessage({ guestName, invitationUrl, groomName, brideName }: InviteMessageInput) {
+  const couple = `${groomName} & ${brideName}`;
   return [
-    `Kepada Yth.`,
-    `*${guestName}*`,
+    `Halo,`,
     ``,
-    `Dengan penuh sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk merayakan hari pernikahan kami:`,
+    `Yth. ${guestName},`,
     ``,
-    `*${groomName} & ${brideName}*`,
-    dateLabel,
+    `Dengan penuh rasa syukur, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:`,
     ``,
-    `Silakan buka undangan pribadi Anda melalui tautan berikut:`,
+    couple,
+    ``,
+    `Info lengkap acara dapat dilihat pada link undangan berikut:`,
+    ``,
     invitationUrl,
     ``,
-    `Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.`,
+    `Merupakan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.`,
     ``,
-    `Terima kasih.`,
-    `Kami yang berbahagia,`,
-    `${groomName} & ${brideName}`,
+    `Mohon maaf undangan hanya dibagikan melalui pesan ini. Terima kasih atas perhatian dan doa restunya.`,
+    ``,
+    `Salam hangat,`,
+    couple,
   ].join("\n");
 }
 

@@ -5,7 +5,7 @@ import { isAdmin, isAdminConfigured } from "@/lib/admin-auth";
 import { getEventId } from "@/lib/data";
 import { invitationUrl } from "@/lib/site";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase-server";
-import { buildWhatsAppInvite } from "@/lib/whatsapp";
+import { buildInviteMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 import { formatRelativeId } from "@/lib/format";
 import { deleteGuestAction, logoutAction, setWishApprovalAction } from "./actions";
 import { AddGuestForm, BulkAddForm, CopyButton, LoginForm } from "./AdminForms";
@@ -146,22 +146,22 @@ export default async function AdminPage() {
       <section className="mt-8 rounded-xl border border-espresso/10 bg-white p-5">
         <h2 className="font-serif text-2xl text-espresso">Daftar tamu ({list.length})</h2>
         <p className="mt-1 text-xs text-ink/55">
-          Tombol WhatsApp membuka chat dengan pesan undangan terisi — Anda tetap yang menekan kirim.
+          “Salin teks” menyalin pesan undangan lengkap berisi nama & link pribadi tamu. Tombol WhatsApp membuka chat dengan pesan yang sama — Anda tetap yang menekan kirim.
         </p>
         <div className="mt-4 divide-y divide-espresso/10">
           {list.length === 0 && <p className="py-6 text-sm text-ink/50">Belum ada tamu.</p>}
           {list.map((g) => {
             const url = invitationUrl(wedding.slug, g.token);
-            const wa = buildWhatsAppInvite({
+            const message = buildInviteMessage({
               guestName: g.guest_name,
               invitationUrl: url,
               groomName: wedding.groom.nickname,
               brideName: wedding.bride.nickname,
-              dateLabel: wedding.dateLabel,
-              phone: g.phone_number,
             });
+            const wa = buildWhatsAppLink(g.phone_number, message);
             return (
-              <div key={g.id} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div key={g.id} className="py-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0">
                   <p className="font-medium text-espresso">
                     {g.guest_name}
@@ -188,7 +188,8 @@ export default async function AdminPage() {
                   >
                     <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
                   </a>
-                  <CopyButton text={url} />
+                  <CopyButton text={message} label="Salin teks" />
+                  <CopyButton text={url} label="Salin link" />
                   <a href={url} target="_blank" rel="noopener noreferrer" className="text-xs text-burgundy underline-offset-2 hover:underline">
                     Buka
                   </a>
@@ -199,6 +200,11 @@ export default async function AdminPage() {
                     </button>
                   </form>
                 </div>
+              </div>
+              <details className="mt-2">
+                <summary className="cursor-pointer text-xs text-burgundy/80">Lihat teks undangan</summary>
+                <pre className="mt-2 whitespace-pre-wrap break-words rounded-md bg-[#faf7f2] p-3 font-sans text-xs leading-relaxed text-ink/80">{message}</pre>
+              </details>
               </div>
             );
           })}
