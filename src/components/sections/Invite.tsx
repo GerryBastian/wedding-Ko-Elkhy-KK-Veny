@@ -6,7 +6,7 @@ import { wedding } from "@/config/wedding";
 import { couplePhotos } from "@/config/photos.generated";
 import { Florals } from "@/components/decor/Florals";
 import { HangingMedallions } from "@/components/decor/HangingMedallions";
-import { PearlStrand, ScriptHeading } from "@/components/decor/Ornaments";
+import { ScriptHeading } from "@/components/decor/Ornaments";
 import { Particles } from "@/components/ui/Particles";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -57,15 +57,14 @@ export function Invite() {
   ];
 
   return (
-    <section id="undangan" className="velvet overflow-hidden px-6 pb-24 pt-20">
+    <section id="undangan" className="velvet overflow-hidden px-6 pb-16 pt-16">
       <Particles count={10} />
       <Florals variant="sprig" className="absolute -left-10 top-6 w-40 rotate-[-12deg] opacity-95" />
 
       <Reveal className="relative mx-auto max-w-md">
         <ScriptHeading script="Kami Mengundang" tone="dark" />
-        <p className="mt-6 text-center text-[1.12rem] leading-relaxed text-pearl/85 text-balance">
-          Dengan memohon rahmat dan berkat Tuhan, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu di
-          hari pernikahan kami. Kehadiran Anda adalah anugerah terindah bagi kami.
+        <p className="mt-4 text-center text-[1.1rem] italic leading-relaxed text-pearl/85 text-balance">
+          Kehadiran dan doa restu Anda adalah anugerah terindah bagi kami.
         </p>
       </Reveal>
 
@@ -77,7 +76,7 @@ export function Invite() {
         />
       </Reveal>
 
-      <Reveal delay={0.1} className="relative mx-auto mt-14 max-w-md text-center">
+      <Reveal delay={0.1} className="relative mx-auto mt-8 max-w-md text-center">
         <p className="eyebrow text-champagne-soft/80">Menuju hari bahagia</p>
         {parts === false ? (
           <p className="mt-5 font-script text-5xl text-gold">Hari bahagia telah tiba</p>
@@ -94,12 +93,10 @@ export function Invite() {
             ))}
           </div>
         )}
-        <p className="mt-8 font-display text-sm uppercase tracking-[0.3em] text-pearl/80">{wedding.dateLabel}</p>
-        <a href={calendarLink()} target="_blank" rel="noopener noreferrer" className="btn-notched mt-7">
+        <a href={calendarLink()} target="_blank" rel="noopener noreferrer" className="btn-notched mt-8">
           <CalendarPlus className="h-4 w-4" />
           Simpan Tanggal
         </a>
-        <PearlStrand className="mx-auto mt-12 w-64 opacity-90" sag={22} count={20} />
       </Reveal>
     </section>
   );

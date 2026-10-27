@@ -68,14 +68,14 @@ export function Rsvp({ token, guestName, existing }: Props) {
   };
 
   return (
-    <section id="rsvp" className="velvet overflow-hidden px-5 py-20 lg:py-28">
+    <section id="rsvp" className="velvet overflow-hidden px-5 py-14 lg:py-24">
       <Florals variant="bouquet" className="absolute -right-12 top-10 w-48 rotate-[10deg]" />
       <Reveal className="relative mx-auto max-w-lg">
-        <div className="paper relative px-6 pb-10 pt-10 shadow-[0_40px_70px_-30px_rgb(0_0_0/0.8)] sm:px-10">
+        <div className="paper relative px-6 pb-8 pt-8 shadow-[0_40px_70px_-30px_rgb(0_0_0/0.8)] sm:px-10">
           <div className="pointer-events-none absolute inset-3 border border-burgundy/25" aria-hidden="true" />
           <div className="relative text-center">
             <h2 className="font-display text-[2.6rem] font-normal uppercase tracking-[0.35em] text-burgundy">RSVP</h2>
-            <div className="relative mx-auto mt-5 aspect-[3/4] w-40 overflow-hidden rounded-[50%] ring-1 ring-burgundy/40 ring-offset-4 ring-offset-ivory">
+            <div className="relative mx-auto mt-4 aspect-[3/4] w-28 overflow-hidden rounded-[50%] ring-1 ring-burgundy/40 ring-offset-4 ring-offset-ivory">
               <Image
                 src={rsvpPhoto.src}
                 alt=""
@@ -86,11 +86,11 @@ export function Rsvp({ token, guestName, existing }: Props) {
                 className="object-cover object-[50%_20%]"
               />
             </div>
-            <p className="mx-auto mt-6 max-w-xs text-[1.08rem] italic leading-relaxed text-ink/75 text-balance">
-              Kehadiran dan doa restu Anda merupakan kebahagiaan bagi kami. Mohon konfirmasi kehadiran Anda.
+            <p className="mx-auto mt-4 max-w-xs text-[1.08rem] italic leading-relaxed text-ink/75 text-balance">
+              Mohon konfirmasi kehadiran Anda.
             </p>
           </div>
-          <div className="relative mt-8">
+          <div className="relative mt-5">
           <AnimatePresence mode="wait">
             {status.kind === "success" ? (
               <motion.div

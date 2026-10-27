@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { wedding } from "@/config/wedding";
 import { couplePhotos } from "@/config/photos.generated";
 import { Florals } from "@/components/decor/Florals";
-import { Bow, PearlStrand, WaxSeal } from "@/components/decor/Ornaments";
+import { Bow, LaurelWreath, PearlStrand, WaxSeal } from "@/components/decor/Ornaments";
 import { Amp, Polaroid } from "@/components/decor/Scrapbook";
 import { Vinyl } from "@/components/decor/Vinyl";
 import { useInvitationOpened } from "@/components/invitation/opened-context";
@@ -19,10 +19,9 @@ export function Hero() {
     animate: opened ? { opacity: 1, y: 0, scale: 1 } : undefined,
     transition: { duration: 1, delay, ease: EASE },
   });
-  const first = wedding.events[0];
 
   return (
-    <section id="hero" className="paper relative overflow-hidden pb-14 pt-8 sm:pt-14">
+    <section id="hero" className="paper relative overflow-hidden pb-6 pt-8 sm:pt-14">
       <div className="@container relative mx-auto aspect-[390/800] w-full max-w-[540px]">
         {/* Kartu perangko burgundy */}
         <motion.div {...drop(0.2)} className="absolute left-[5%] top-[3%] w-[52%]">
@@ -46,15 +45,17 @@ export function Hero() {
           <Bow className="w-full" />
         </motion.div>
 
-        {/* Kartu tanggal */}
+        {/* Kartu monogram */}
         <motion.div {...drop(0.35)} className="absolute right-[5%] top-[14%] w-[39%]">
-          <div className="rotate-[5deg] border-[0.5cqw] border-double border-burgundy/70 bg-pearl px-[2.5cqw] py-[4cqw] text-center shadow-[0_16px_26px_-14px_rgb(30_5_10/0.55)]">
-            <p className="font-script text-[7cqw] leading-none text-burgundy">Jumat</p>
-            <p className="font-display text-[13cqw] leading-none text-burgundy">06</p>
-            <p className="font-display text-[2.6cqw] uppercase tracking-[0.25em] text-ink/80">November 2026</p>
-            <div className="mx-auto my-[2.5cqw] h-px w-1/2 bg-burgundy/30" />
-            <p className="font-display text-[2.6cqw] italic text-ink/75">pukul {first.timeLabel.split(" ")[0]} WITA</p>
-            <p className="mt-[1cqw] text-[2.9cqw] leading-tight text-ink/80 text-balance">{first.venue}</p>
+          <div className="rotate-[5deg] border-[0.5cqw] border-double border-burgundy/70 bg-pearl px-[2.5cqw] pb-[4.5cqw] pt-[5cqw] text-center shadow-[0_16px_26px_-14px_rgb(30_5_10/0.55)]">
+            <div className="relative mx-auto aspect-square w-[88%]">
+              <LaurelWreath className="absolute inset-0 h-full w-full" />
+              <p className="absolute inset-0 flex items-center justify-center pb-[6%] font-script text-[11cqw] leading-none text-burgundy">
+                E<Amp className="mx-[0.5cqw] text-[6cqw] text-champagne" />V
+              </p>
+            </div>
+            <p className="mt-[2cqw] font-display text-[2.4cqw] uppercase tracking-[0.3em] text-ink/75">Dua hati</p>
+            <p className="font-script text-[6cqw] leading-tight text-burgundy">satu janji</p>
           </div>
         </motion.div>
         <motion.div {...drop(0.6)} className="absolute -right-[14%] -top-[4%] w-[44%]">
@@ -100,14 +101,6 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={opened ? { opacity: 1 } : undefined}
-        transition={{ duration: 1.2, delay: 1.2 }}
-        className="mx-auto mt-6 max-w-sm px-8 text-center text-[1.1rem] italic leading-relaxed text-ink/80 text-balance"
-      >
-        {wedding.copy.heroIntro}
-      </motion.p>
     </section>
   );
 }

@@ -162,6 +162,41 @@ export function PearlStrand({ className, count = 22, sag = 34 }: { className?: s
   );
 }
 
+/* ───────────────── Rangkaian laurel ───────────────── */
+
+/** Daun-daun laurel di sepanjang busur, deterministik. */
+const LAUREL_LEAVES = (() => {
+  const leaves: { x: number; y: number; rot: number; side: 1 | -1 }[] = [];
+  for (const side of [-1, 1] as const) {
+    for (let i = 0; i < 9; i++) {
+      // busur dari bawah (90°) naik ke atas di sisi kiri/kanan
+      const deg = 98 + i * 16;
+      const a = (deg * Math.PI) / 180;
+      const x = 50 + side * -38 * Math.cos(a);
+      const y = 52 + 38 * Math.sin(a);
+      const tangent = side === -1 ? deg + 90 : 90 - deg;
+      leaves.push({ x, y, rot: tangent + (i % 2 === 0 ? 28 : -28) * side, side });
+    }
+  }
+  return leaves;
+})();
+
+/** Rangkaian daun laurel emas melingkar (untuk monogram). */
+export function LaurelWreath({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 100 100" className={className} aria-hidden="true" focusable="false">
+      <g fill="url(#gold-leaf)" filter="url(#gilded)">
+        <path d="M50 92 C22 88 10 64 14 40 C16 30 20 22 26 16" fill="none" stroke="url(#gold-leaf)" strokeWidth="1.2" />
+        <path d="M50 92 C78 88 90 64 86 40 C84 30 80 22 74 16" fill="none" stroke="url(#gold-leaf)" strokeWidth="1.2" />
+        {LAUREL_LEAVES.map((l, i) => (
+          <ellipse key={i} cx={l.x.toFixed(2)} cy={l.y.toFixed(2)} rx="2.1" ry="5.2" transform={`rotate(${l.rot.toFixed(1)} ${l.x.toFixed(2)} ${l.y.toFixed(2)})`} />
+        ))}
+        <circle cx="50" cy="92" r="2.2" />
+      </g>
+    </svg>
+  );
+}
+
 /* ───────────────── Pemisah emas berhias ───────────────── */
 
 export function GoldFlourish({ className }: { className?: string }) {
@@ -193,7 +228,15 @@ export function ScriptHeading({
   return (
     <div className={`text-center ${className ?? ""}`}>
       {label && <p className={`eyebrow ${dark ? "text-champagne-soft/80" : "text-rose"}`}>{label}</p>}
-      <h2 className={`mt-1 px-2 font-script text-[3.4rem] leading-[1.25] sm:text-7xl ${dark ? "text-gold" : "text-burgundy"}`}>{script}</h2>
+      <h2 className={`mt-1 px-2 font-script text-[3.4rem] leading-[1.25] sm:text-7xl ${dark ? "text-gold" : "text-burgundy"}`}>
+        {/* "&" bawaan Pinyon kurang terbaca → ganti dengan italic serif */}
+        {script.split("&").map((part, i) => (
+          <span key={i}>
+            {i > 0 && <span className="font-serif text-[0.6em] italic">&amp;</span>}
+            {part}
+          </span>
+        ))}
+      </h2>
       <GoldFlourish className="mx-auto mt-1 h-4 w-44" />
     </div>
   );

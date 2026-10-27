@@ -9,28 +9,22 @@ import { Amp } from "@/components/decor/Scrapbook";
 import { GildedArchFrame } from "@/components/decor/GildedFrame";
 import { ImageReveal, Reveal } from "@/components/ui/Reveal";
 
+/** Mempelai berdampingan (juga di HP) agar section tetap ringkas. */
 export function Couple() {
   return (
-    <section id="mempelai" className="paper overflow-hidden px-5 py-20 lg:py-28">
+    <section id="mempelai" className="paper overflow-hidden px-3 py-16 sm:px-5 lg:py-24">
       <Reveal>
         <ScriptHeading script="Mempelai" label="Putra & putri terkasih" />
-        <p className="mx-auto mt-5 max-w-sm text-center text-[1.08rem] italic leading-relaxed text-ink/75 text-balance">
-          Dengan memohon rahmat dan berkat Tuhan, kami bermaksud menyelenggarakan pernikahan putra-putri kami:
-        </p>
       </Reveal>
 
-      <div className="mx-auto mt-14 grid max-w-5xl gap-16 md:grid-cols-[1fr_auto_1fr] md:items-start md:gap-8">
-        <Profile person={wedding.groom} photo={couplePhotos.groom} role="Mempelai Pria" parentLabel="Putra dari" floralSide="right" />
-
-        <Reveal className="flex items-center justify-center md:mt-56" aria-hidden="true">
-          <Amp className="text-7xl text-champagne" />
-        </Reveal>
-
-        <Profile person={wedding.bride} photo={couplePhotos.bride} role="Mempelai Wanita" parentLabel="Putri dari" floralSide="left" />
+      <div className="relative mx-auto mt-8 grid max-w-3xl grid-cols-2 gap-x-3 sm:gap-x-10">
+        <Profile person={wedding.groom} photo={couplePhotos.groom} role="Mempelai Pria" parentLabel="Putra dari" floralSide="left" />
+        <Profile person={wedding.bride} photo={couplePhotos.bride} role="Mempelai Wanita" parentLabel="Putri dari" floralSide="right" />
+        <Amp className="pointer-events-none absolute left-1/2 top-[18%] -translate-x-1/2 text-4xl text-champagne sm:text-6xl" />
       </div>
 
-      <Reveal className="relative mx-auto mt-20 max-w-sm">
-        <div className="relative border-[3px] border-double border-burgundy/50 bg-pearl px-6 pb-8 pt-10 text-center shadow-[0_18px_34px_-20px_rgb(30_5_10/0.6)]">
+      <Reveal className="relative mx-auto mt-14 max-w-sm px-2">
+        <div className="relative border-[3px] border-double border-burgundy/50 bg-pearl px-6 pb-7 pt-10 text-center shadow-[0_18px_34px_-20px_rgb(30_5_10/0.6)]">
           <WaxSeal className="absolute -top-8 left-1/2 h-16 w-16 -translate-x-1/2" />
           <p className="eyebrow text-rose">Bapa &amp; Mama Saksi</p>
           <GoldFlourish className="mx-auto my-3 h-3 w-32" />
@@ -54,15 +48,14 @@ function Profile({ person, photo, role, parentLabel, floralSide }: ProfileProps)
   return (
     <article className="text-center">
       {/* Bingkai lengkung emas barok */}
-      <div className="relative mx-auto w-[84%] max-w-[330px]">
-        <div className="pointer-events-none absolute -inset-[8%] rounded-full bg-[radial-gradient(closest-side,rgb(214_176_106/0.35),transparent)] blur-xl" aria-hidden="true" />
+      <div className="relative mx-auto w-full max-w-[300px]">
         <ImageReveal className="relative">
           <GildedArchFrame>
             <Image
               src={photo.src}
               alt={`${role}: ${person.fullName}`}
               fill
-              sizes="(min-width: 768px) 260px, 62vw"
+              sizes="(min-width: 768px) 260px, 42vw"
               placeholder="blur"
               blurDataURL={photo.blurDataURL}
               className="object-cover object-top transition duration-[1.6s] ease-out hover:scale-[1.04]"
@@ -71,18 +64,20 @@ function Profile({ person, photo, role, parentLabel, floralSide }: ProfileProps)
         </ImageReveal>
         <Florals
           variant="sprig"
-          className={`absolute -bottom-[4%] w-[44%] ${floralSide === "right" ? "-right-[16%]" : "-left-[16%] -scale-x-100"}`}
+          className={`absolute -bottom-[3%] w-[42%] ${floralSide === "left" ? "-left-[8%] -scale-x-100" : "-right-[8%]"}`}
         />
       </div>
 
-      <Reveal delay={0.1} className="mt-8 px-2">
-        <p className="eyebrow text-rose">{role}</p>
-        <p className="mt-1 font-script text-[4rem] leading-[1.2] text-burgundy">{person.nickname}</p>
-        <h3 className="font-display text-[1.05rem] font-medium uppercase leading-snug tracking-[0.14em] text-ink text-balance">{person.fullName}</h3>
-        <p className="mt-3 italic text-rose">{person.childOrder}</p>
-        <GoldFlourish className="mx-auto my-4 h-3 w-36" />
-        <p className="eyebrow text-[0.6rem] text-ink/50">{parentLabel}</p>
-        <p className="mt-2 text-[1.08rem] leading-relaxed text-ink/85">
+      <Reveal delay={0.1} className="mt-3 px-0.5">
+        <p className="eyebrow text-[0.5rem] tracking-[0.25em] text-rose sm:text-[0.62rem]">{role}</p>
+        <p className="font-script text-[2.5rem] leading-[1.25] text-burgundy sm:text-6xl">{person.nickname}</p>
+        <h3 className="font-display text-[0.68rem] font-medium uppercase leading-snug tracking-[0.08em] text-ink text-balance sm:text-sm">
+          {person.fullName}
+        </h3>
+        <p className="mt-1.5 text-[0.8rem] italic leading-snug text-rose sm:text-base">{person.childOrder}</p>
+        <p className="mt-2 text-[0.8rem] leading-snug text-ink/80 sm:text-base">
+          <span className="italic text-ink/55">{parentLabel}</span>
+          <br />
           {person.father}
           <br />
           &amp; {person.mother}
@@ -92,7 +87,7 @@ function Profile({ person, photo, role, parentLabel, floralSide }: ProfileProps)
             href={`https://instagram.com/${person.instagram}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex min-h-11 items-center gap-2 border-b border-burgundy/30 text-burgundy transition hover:border-burgundy"
+            className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm text-burgundy"
           >
             <Instagram className="h-4 w-4" /> @{person.instagram}
           </a>

@@ -14,7 +14,7 @@ type Props = {
   initialWishes: Wish[];
 };
 
-const PAGE = 6;
+const PAGE = 3;
 
 function timeAgo(iso: string) {
   const diff = (Date.now() - new Date(iso).getTime()) / 1000;
@@ -64,12 +64,12 @@ export function Wishes({ token, guestName, initialWishes }: Props) {
   };
 
   return (
-    <section id="ucapan" className="paper overflow-hidden py-20 lg:py-28">
+    <section id="ucapan" className="paper overflow-hidden py-14 lg:py-24">
       <Reveal>
         <ScriptHeading script="Doa & Ucapan" label="Buku tamu" />
       </Reveal>
 
-      <div className="mx-auto mt-12 grid max-w-5xl gap-12 px-5 lg:grid-cols-5 lg:px-10">
+      <div className="mx-auto mt-8 grid max-w-5xl gap-12 px-5 lg:grid-cols-5 lg:px-10">
         <Reveal className="lg:col-span-2">
           <form onSubmit={onSubmit} noValidate className="relative border-[3px] border-double border-burgundy/40 bg-pearl px-6 pb-7 pt-9 shadow-[0_20px_40px_-26px_rgb(30_5_10/0.6)] lg:sticky lg:top-10">
             <WaxSeal className="absolute -top-7 right-6 h-14 w-14 rotate-12" />
@@ -86,7 +86,7 @@ export function Wishes({ token, guestName, initialWishes }: Props) {
             <label className="mt-7 block">
               <span className="eyebrow text-rose">Ucapan &amp; doa</span>
               <textarea
-                className="field mt-1 min-h-32 resize-none"
+                className="field mt-1 min-h-24 resize-none"
                 value={message}
                 onChange={(e) => {
                   setMessage(e.target.value);
