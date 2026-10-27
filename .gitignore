@@ -1,0 +1,18 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+.env
+.env.local
+.env.*.local
+.vercel
+npm-debug.log*
+
+# Foto asli kamera (±300 MB) — yang di-deploy hanya versi web
+# di public/images/couple & public/images/gallery (npm run images)
+public/images/*.JPG
+public/images/*.jpg
+
+# Video referensi lokal (tidak dipakai situs)
+public/video animation/

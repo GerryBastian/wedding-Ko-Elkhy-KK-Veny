@@ -1,0 +1,36 @@
+{
+  "name": "undangan-elkhi-veni",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/eslint/bin/eslint.js .",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
+    "images": "node scripts/optimize-images.mjs",
+    "check:db": "node scripts/check-supabase.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
+    "framer-motion": "12.43.0",
+    "lucide-react": "0.577.0",
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "server-only": "^0.0.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "4.1.18",
+    "@types/node": "22.20.5",
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
+    "eslint": "9.39.5",
+    "eslint-config-next": "15.5.28",
+    "sharp": "0.34.5",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3"
+  }
+}
